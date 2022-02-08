@@ -14,7 +14,6 @@ CREATE TABLE "result" (
 
 CREATE TABLE "group" (
   "id" serial PRIMARY KEY,
-  "degree_id" integer,
   "subject_area_id" integer,
   "name" varchar
 );
