@@ -1,10 +1,10 @@
 package crud.data.service;
 
-import java.util.List;
 import crud.data.models.Person;
+import java.util.ArrayList;
 
 public interface IUserService {
-    List<Person> findAllUsers();
+    ArrayList<Person> findAllUsers();
     Person findById(long id);
     Person insert(Person p);
     boolean delete(long id);

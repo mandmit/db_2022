@@ -3,17 +3,18 @@ package crud.data.service;
 import crud.data.models.Person;
 
 import java.sql.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class UserService implements IUserService {
     @Override
-    public List<Person> findAllUsers() {
-        List<Person> users_list = null;
+    public ArrayList<Person> findAllUsers() {
+        ArrayList<Person> users_list = new ArrayList<Person>();
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user");
             while (resultSet.next()) {
-                users_list.add(new Person(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getString("surname")));
+                Person p = new Person(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getString("surname"));
+                users_list.add(p);
             }
         } catch (SQLException e) {
             System.out.println("Connection failure.");
@@ -48,9 +49,13 @@ public class UserService implements IUserService {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user");
             while (resultSet.next()) {
                 if(resultSet.isLast()){
-                    String query = "INSERT INTO public.user (id,name,surname) VALUES ({0},{1},{2});";
-                    query = java.text.MessageFormat.format(query,p.getId()+1,p.getName(),p.getSurname());
-                    statement.executeQuery(query);
+                    String query = "INSERT INTO public.user (id,name,surname) VALUES (?,?,?);";
+                    PreparedStatement statement1 = connection.prepareStatement(query);
+                    statement1.setLong(1,p.getId());
+                    statement1.setString(2,p.getName());
+                    statement1.setString(3, p.getSurname());
+                    //p.setId(resultSet.getLong("id")+1);
+                    statement1.executeUpdate();
                 }
             }
         } catch (SQLException e) {
@@ -63,10 +68,11 @@ public class UserService implements IUserService {
     @Override
     public boolean delete(long id) {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
-            Statement statement = connection.createStatement();
-            String query = "DELETE FROM public.user WHERE id={0};";
-            query = java.text.MessageFormat.format(query,id);
-            statement.executeQuery(query);
+            String query = "DELETE FROM public.user WHERE id=?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1,id);
+            statement.executeUpdate();
+            connection.close();
             return true;
         } catch (SQLException e) {
             System.out.println("Connection failure.");
@@ -78,10 +84,13 @@ public class UserService implements IUserService {
     @Override
     public boolean update(Person p) {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
-            Statement statement = connection.createStatement();
-            String query = "UPDATE public.user SET name={0}, surname={1}  WHERE id={2};";
-            query = java.text.MessageFormat.format(query,p.getId(),p.getName(),p.getSurname());
-            statement.executeQuery(query);
+            String query = "UPDATE public.user SET name=?, surname=?  WHERE id=?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1,p.getName());
+            statement.setString(2,p.getSurname());
+            statement.setLong(3,p.getId());
+            statement.executeUpdate();
+            connection.close();
             return true;
         } catch (SQLException e) {
             System.out.println("Connection failure.");
