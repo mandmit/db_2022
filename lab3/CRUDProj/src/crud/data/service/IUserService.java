@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public interface IUserService {
     ArrayList<Person> findAllUsers();
     Person findById(long id);
-    Person insert(Person p);
+    void insert(Person p);
     boolean delete(long id);
     boolean update(Person p);
 }

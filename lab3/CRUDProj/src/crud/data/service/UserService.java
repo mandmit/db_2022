@@ -43,7 +43,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Person insert(Person p) {
+    public void insert(Person p) {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user ORDER BY id;");
@@ -62,7 +62,6 @@ public class UserService implements IUserService {
             System.out.println("Connection failure.");
             e.printStackTrace();
         }
-        return p;
     }
 
     @Override

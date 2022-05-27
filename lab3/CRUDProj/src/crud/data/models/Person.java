@@ -1,21 +1,12 @@
 package crud.data.models;
 
-public class Person {
-    private long id;
+public class Person extends Entity {
     private String name;
     private String surname;
     public Person(long id, String name, String surname){
         this.setId(id);
         this.setName(name);
         this.setSurname(surname);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
