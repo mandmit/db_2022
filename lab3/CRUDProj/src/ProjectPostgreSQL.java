@@ -1,12 +1,9 @@
 import crud.data.models.Person;
 import crud.data.service.UserService;
 
-import java.nio.file.attribute.UserPrincipal;
-import java.sql.*;
-import java.text.MessageFormat;
 import java.util.*;
 
-public class PostgreSqlExample {
+public class ProjectPostgreSQL {
     public static void main(String[] args) {
         int n = 1;
         while(n!=0){

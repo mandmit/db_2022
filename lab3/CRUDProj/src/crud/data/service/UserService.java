@@ -11,7 +11,7 @@ public class UserService implements IUserService {
         ArrayList<Person> users_list = new ArrayList<Person>();
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user ORDER BY id;");
             while (resultSet.next()) {
                 Person p = new Person(resultSet.getLong("id"), resultSet.getString("name"), resultSet.getString("surname"));
                 users_list.add(p);
@@ -28,7 +28,7 @@ public class UserService implements IUserService {
         Person user = new Person(id,null,null);
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user;");
             while (resultSet.next()) {
                 if(resultSet.getLong("id") == user.getId()){
                     user.setName(resultSet.getString("name"));
@@ -46,15 +46,15 @@ public class UserService implements IUserService {
     public Person insert(Person p) {
         try (Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lab1DBase", "postgres", "1111")) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM public.user ORDER BY id;");
             while (resultSet.next()) {
                 if(resultSet.isLast()){
                     String query = "INSERT INTO public.user (id,name,surname) VALUES (?,?,?);";
                     PreparedStatement statement1 = connection.prepareStatement(query);
+                    p.setId(resultSet.getLong("id")+1);
                     statement1.setLong(1,p.getId());
                     statement1.setString(2,p.getName());
                     statement1.setString(3, p.getSurname());
-                    //p.setId(resultSet.getLong("id")+1);
                     statement1.executeUpdate();
                 }
             }
