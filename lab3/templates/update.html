@@ -1,0 +1,17 @@
+{%extends 'base.html' %}
+
+{%block content %}
+    <form class="grid" action="/update" method="POST">
+        <label for="Name">enter new name :</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="Surname">enter new surname :</label><br>
+        <input type="text" id="surname" name="surname"><br>
+        <input type="submit" class="file_submit">
+    </form>
+
+    {% if name1 %}
+    <h3>{{name1 }}</h3>
+    <a href="http://127.0.0.1:5000/">change id</a>
+    {% endif %}
+
+{% endblock %}
