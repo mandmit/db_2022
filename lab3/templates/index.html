@@ -1,19 +1,15 @@
 {%extends 'base.html' %}
 
 {%block content %}
-    <form class = "grid" action="/result" method="POST">
-        <label for="Name">enter id :</label><br>
-        <input type="text" id="id" name="id"><br>
-        <input type="submit" class="file_submit">
-
+    <form class = "grid" action="/table" method="POST">
+        <select id="table" name="table" required>
+            <option value="">Select table</option>
+            <option value="user">User</option>
+            <option value="budget">Budget</option>
+            <option value="group">Group</option>
+            <option value="result">Result</option>
+            <option value="subject_area">Subject_area</option>
+         </select>
+         <input type="submit" class="submit">
       </form>
-
-      {% if name %}
-      <h3>{{name}} </h3><br>
-      <a href="http://127.0.0.1:5000/update">change pasport id</a>
-      <a href="http://127.0.0.1:5000/delete">delete user</a>
-      {% endif %} 
-
-      <a href="http://127.0.0.1:5000/create">create user</a>
-
 {% endblock %}

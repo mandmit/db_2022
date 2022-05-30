@@ -1,19 +1,28 @@
 {%extends 'base.html' %}
 
 {%block content %}
+    {% if table_name %}
+    <h3>Now using table with name: {{table_name}} </h3>
+    {% endif %}
     <form class="grid" action="/create" method="POST">
-        <label for="Pasport">enter new id :</label><br>
+        <label for="Id">Enter new id :</label><br>
         <input type="text" id="id" name="id"><br>
 
-        <label for="Name">enter new name :</label><br>
+        <label for="Name">Enter new name :</label><br>
         <input type="text" id="name" name="name"><br>
 
-        <label for="Surname">enter new surname :</label><br>
+        <label for="Surname">Enter new surname :</label><br>
         <input type="text" id="surname" name="surname"><br>
-        <input type="submit" class="file_submit">
+        <input type="submit" class="submit">
     </form>
 
-    <a href="http://127.0.0.1:5000/">choose id</a>
+    {% if id %}
+    <h3>{{id}} </h3><br>
+    <a href="http://127.0.0.1:5000/update">update</a>
+    <a href="http://127.0.0.1:5000/delete">delete</a>
+    {% endif %}
+
+    <a href="http://127.0.0.1:5000/table">choose table</a>
 
 
 {% endblock %}

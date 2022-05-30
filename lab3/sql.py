@@ -1,8 +1,9 @@
 import psycopg2
 
 arr = 0
+str_table = ""
 
-def get_users(id):
+def get_user(id):
     global arr
     arr = id
     connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
@@ -34,7 +35,6 @@ def update( name, surname):
 
 
 def delete():
-
     connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
                         password='1111', host='localhost')
     cursor = connection.cursor()
@@ -46,7 +46,6 @@ def delete():
     connection.close()
 
 def add(id, name, surname):
-
     connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
                         password='1111', host='localhost')
     cursor = connection.cursor()
@@ -58,6 +57,7 @@ def add(id, name, surname):
 
     cursor.close()
     connection.close()
+    return get_user(id)
 
 
 #psql \! chcp 1251
