@@ -10,10 +10,11 @@ def get_users(id):
     cursor = connection.cursor()
 
     cursor.execute(f"SELECT * FROM \"user\" WHERE id = {id};")
-    return cursor.fetchall()
-
+    returned = cursor.fetchall()
     cursor.close()
     connection.close()
+    return returned
+
 
 
 def update( name, surname):
@@ -25,10 +26,11 @@ def update( name, surname):
 
     connection.commit()
     cursor.execute(f"SELECT * FROM \"user\" WHERE id = {arr}")
-    return cursor.fetchall()
-
+    returned = cursor.fetchall()
     cursor.close()
     connection.close()
+    return returned
+
 
 
 def delete():

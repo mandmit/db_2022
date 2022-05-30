@@ -11,7 +11,7 @@ def index():
 def result():
     output = request.form.to_dict()
     name = output["id"]
-    return render_template("index.html", name=sql.get_users(name))
+    return render_template("index.html", name = sql.get_users(name))
 
 @app.route('/update', methods = ['POST', 'GET'])
 def update():
