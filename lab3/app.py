@@ -18,19 +18,38 @@ def table():
     else:
         return render_template("index.html")
 
+@app.route('/all_records', methods = ["POST", "GET"])
+def all_records():
+    return render_template("result.html", table_name = str_table, all_records = sql.get_records(str_table))
+
 @app.route('/result', methods = ['POST', 'GET'])
 def result():
     output = request.form.to_dict()
     name = output["id"]
-    return render_template("result.html", table_name = str_table, name = sql.get_user(name))
+    return render_template("result.html", table_name = str_table, name = sql.get_record(name, str_table))
 
 @app.route('/update', methods = ['POST', 'GET'])
 def update():
     if request.method == "POST":
+        l = []
         output = request.form.to_dict()
-        name = output["name"]
-        surname = output["surname"]
-        return  render_template("update.html", entity = sql.update(name, surname), table_name = str_table)
+        if str_table == "user":
+            l.append(output["name"])
+            l.append(output["surname"])
+        if str_table == "result":
+            l.append(output["group_id"])
+            l.append(output["rating"])
+            l.append(output["day"])
+        if str_table == "budget":
+            l.append(output["price"])
+        if str_table == "group":
+            l.append(output["subject_area_id"])
+            l.append(output["group_name"])
+        if str_table == "subject_area":
+            l.append(output["budget_id"])
+            l.append(output["title"])
+        print(l)
+        return  render_template("update.html", entity = sql.update(l, str_table), table_name = str_table)
     else:
         return render_template('update.html', table_name = str_table)
 
