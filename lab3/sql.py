@@ -68,19 +68,30 @@ def delete(table_name):
     cursor.close()
     connection.close()
 
-def add(id, name, surname):
+def add(lst, table_name):
     connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
                         password='1111', host='localhost')
     cursor = connection.cursor()
-
-    sql = f"INSERT INTO \"user\" (id, name, surname) VALUES(%s, %s, %s)"
-    val = (str(id),str(name), str(surname))
+    sql = ""
+    val = ""
+    if table_name == "user":
+        sql = f"INSERT INTO \"{table_name}\" (id, name, surname) VALUES(%s, %s, %s)"
+        val = (str(lst[0]),str(lst[1]), str(lst[2]))
+    if table_name == "group":
+        sql = f"INSERT INTO \"{table_name}\" (id, subject_area_id, name) VALUES(%s, %s, %s)"
+        val = (str(lst[0]),str(lst[1]), str(lst[2]))
+    if table_name == "subject_area":
+        sql = f"INSERT INTO \"{table_name}\" (id, budget_id, title) VALUES(%s, %s, %s)"
+        val = (str(lst[0]),str(lst[1]), str(lst[2]))
+    if table_name == "budget":
+        sql = f"INSERT INTO \"{table_name}\" (id, dollars) VALUES(%s, %s)"
+        val = (str(lst[0]),str(lst[1]))
     cursor.execute(sql, val)
     connection.commit()
 
     cursor.close()
     connection.close()
-    return get_record(id)
+    return get_record(lst[0], table_name)
 
 
 #psql \! chcp 1251

@@ -36,10 +36,6 @@ def update():
         if str_table == "user":
             l.append(output["name"])
             l.append(output["surname"])
-        if str_table == "result":
-            l.append(output["group_id"])
-            l.append(output["rating"])
-            l.append(output["day"])
         if str_table == "budget":
             l.append(output["price"])
         if str_table == "group":
@@ -56,7 +52,7 @@ def update():
 @app.route('/delete')
 def delete():
     try:
-        sql.delete()
+        sql.delete(table_name=str_table)
     except:
         print("Error")
         return render_template('index.html')
@@ -69,11 +65,21 @@ def delete():
 @app.route("/create", methods = ['POST', 'GET'])
 def create():
     if request.method == "POST":
+        l = []
         output = request.form.to_dict()
-        first = output["id"]
-        second = output["name"]
-        third = output["surname"]
-        return  render_template("create.html", id = sql.add(first,second,third), table_name = str_table)
+        l.append(output["id"])
+        if str_table == "user":
+            l.append(output["name"])
+            l.append(output["surname"])
+        if str_table == "budget":
+            l.append(output["price"])
+        if str_table == "group":
+            l.append(output["subject_area_id"])
+            l.append(output["group_name"])
+        if str_table == "subject_area":
+            l.append(output["budget_id"])
+            l.append(output["title"])
+        return  render_template("create.html", id = sql.add(l, str_table), table_name = str_table)
     else:
         return render_template('create.html', table_name = str_table)
 

@@ -24,12 +24,14 @@
       {% if name %}
       <h3>{{name}} </h3><br>
       {% if table_name != "result" %}
-      <a href="http://127.0.0.1:5000/create">create</a>
       <a href="http://127.0.0.1:5000/update">update</a>
       <a href="http://127.0.0.1:5000/delete">delete</a>
       {% endif %} 
       {% endif %} 
 
+      {% if table_name != "result" %}
+      <a href="http://127.0.0.1:5000/create">create</a>
+      {% endif %} 
       <a href="http://127.0.0.1:5000/all_records">all records from current table</a>
       <a href="http://127.0.0.1:5000/table">choose table</a>
 
