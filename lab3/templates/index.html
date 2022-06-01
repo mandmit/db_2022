@@ -1,0 +1,15 @@
+{%extends 'base.html' %}
+
+{%block content %}
+    <form class = "grid" action="/table" method="POST">
+        <select id="table" name="table" required>
+            <option value="">Select table</option>
+            <option value="user">User</option>
+            <option value="budget">Budget</option>
+            <option value="group">Group</option>
+            <option value="result">Result</option>
+            <option value="subject_area">Subject_area</option>
+         </select>
+         <input type="submit" class="submit">
+      </form>
+{% endblock %}

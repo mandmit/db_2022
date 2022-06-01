@@ -1,0 +1,41 @@
+{%extends 'base.html' %}
+
+{%block content %}
+    {% if table_name %}
+    <h3>Now using table with name: {{table_name}} </h3>
+    {% endif %}
+    <form class="grid" action="/update" method="POST">
+        {% if table_name == "user" %}
+        <label for="Name">Enter new name :</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="Surname">Enter new surname :</label><br>
+        <input type="text" id="surname" name="surname"><br>
+        {% endif %}
+        {% if table_name == "budget" %}
+        <label for="Price">Enter new price :</label><br>
+        <input type="number" id="price" name="price">$<br>
+        {% endif %}
+        {% if table_name == "result" %}
+        <a href="http://127.0.0.1:5000/table">choose table</a>
+        {% endif %}
+        {% if table_name == "group" %}
+        <label for="Subject_area_id">Enter new subject_area_id :</label><br>
+        <input type="number" id="subject_area_id" name="subject_area_id"><br>
+        <label for="Name">Enter new name of group:</label><br>
+        <input type="text" id="group_name" name="group_name"><br>
+        {% endif %}
+        {% if table_name == "subject_area" %}
+        <label for="Budget_id">Enter new budget_id :</label><br>
+        <input type="number" id="budget_id" name="budget_id"><br>
+        <label for="Title">Enter new title (Computer Science, Mechanical etc..):</label><br>
+        <input type="text" id="title" name="title"><br>
+        {% endif %}
+        <input type="submit" class="submit">
+    </form>
+
+    {% if entity %}
+    <h3>{{entity}}</h3>
+    <a href="http://127.0.0.1:5000/table">choose table</a>
+    {% endif %}
+
+{% endblock %}
