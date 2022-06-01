@@ -1,4 +1,3 @@
-from tkinter.tix import Form
 from flask import Flask, render_template, request
 import sql
 

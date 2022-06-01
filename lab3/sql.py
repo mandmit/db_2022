@@ -1,4 +1,5 @@
 import psycopg2
+import db_conf
 
 arr = 0
 str_table = ""
@@ -6,8 +7,8 @@ str_table = ""
 def get_record(id, table_name):
     global arr
     arr = id
-    connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
-                        password='1111', host='localhost')
+    connection = psycopg2.connect(dbname=db_conf.db_name, user=db_conf.db_user, 
+                        password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
 
     if table_name == "result":
@@ -20,8 +21,8 @@ def get_record(id, table_name):
     return returned
 
 def get_records(table_name):
-    connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
-                        password='1111', host='localhost')
+    connection = psycopg2.connect(dbname=db_conf.db_name, user=db_conf.db_user, 
+                        password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
     tmp = "id"
     if table_name == "result":
@@ -33,8 +34,8 @@ def get_records(table_name):
     return returned
 
 def update(lst, table_name):
-    connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
-                        password='1111', host='localhost')
+    connection = psycopg2.connect(dbname=db_conf.db_name, user=db_conf.db_user, 
+                        password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
     print(arr)
     print(lst)
@@ -58,8 +59,8 @@ def update(lst, table_name):
 
 
 def delete(table_name):
-    connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
-                        password='1111', host='localhost')
+    connection = psycopg2.connect(dbname=db_conf.db_name, user=db_conf.db_user, 
+                        password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
 
     cursor.execute(f"DELETE FROM \"{table_name}\" WHERE id = {arr}")
@@ -69,8 +70,8 @@ def delete(table_name):
     connection.close()
 
 def add(lst, table_name):
-    connection = psycopg2.connect(dbname='Lab1DBase', user="postgres", 
-                        password='1111', host='localhost')
+    connection = psycopg2.connect(dbname=db_name, user=db_conf.db_user, 
+                        password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
     sql = ""
     val = ""
@@ -92,6 +93,3 @@ def add(lst, table_name):
     cursor.close()
     connection.close()
     return get_record(lst[0], table_name)
-
-
-#psql \! chcp 1251
