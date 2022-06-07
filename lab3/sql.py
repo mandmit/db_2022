@@ -70,7 +70,7 @@ def delete(table_name):
     connection.close()
 
 def add(lst, table_name):
-    connection = psycopg2.connect(dbname=db_name, user=db_conf.db_user, 
+    connection = psycopg2.connect(dbname=db_conf.db_name, user=db_conf.db_user, 
                         password=db_conf.db_user_password, host=db_conf.db_host)
     cursor = connection.cursor()
     sql = ""
