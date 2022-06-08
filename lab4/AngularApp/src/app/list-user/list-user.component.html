@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h2>User's list</h2>
+    </div>
+</div>
+
+<div class="row">
+    <table class="table text-center">
+        <thead>
+            <th>Name</th>
+            <th>Surname</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let us of user">
+                <td>{{us.name}}</td>
+                <td>{{us.surname}}</td>
+                <td>
+                    <a href="edit-user/{{us._id}}" class="btn btn-success">EDIT</a> | <button (click)="delUser(us)" class="btn btn-danger">DELETE</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
